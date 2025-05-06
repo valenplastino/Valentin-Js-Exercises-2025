@@ -3,44 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <title>D3 POST Request Example</title>
-    <!-- Include D3 from a CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
     <h1>D3 POST Request Example</h1>
-    <script>
+    <p>Sending POST request to <code>https://httpbin.org/post</code>...</p>
 
-      // URL of the testing endpoint.
-      // httpbin.org is useful since it returns our data as part of the response.
+    <h2>Response:</h2>
+    <pre id="response-box">Waiting for response...</pre>
+
+    <script>
       const url = "https://httpbin.org/post";
 
-
-      // Data to be sent in the POST request.
       const postData = {
         name: "Waldo Ma",
         email: "waldo@example.com",
         age: 75
-      }
+      };
 
-      // Use d3.json to send the POST request.
-      // Note: d3.json accepts an options object similar to the Fetch API.
       d3.json(url, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData)
       })
       .then(response => {
-        // Log the response so you can verify that the server received the data.
-        console.log("SUCCESS!")
-        console.log("Response:", response)
-        // work with the response here
-
-
-
+        console.log("SUCCESS!");
+        console.log("Response:", response);
+        document.getElementById("response-box").textContent =
+          JSON.stringify(response, null, 2);
       })
       .catch(error => {
-        console.error("Error in POST request:", error)
-      })
+        console.error("Error in POST request:", error);
+        document.getElementById("response-box").textContent =
+          "Error: " + error.message;
+      });
     </script>
   </body>
 </html>
