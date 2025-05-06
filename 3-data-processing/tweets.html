@@ -102,7 +102,22 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        console.log(tweets[0]["user"]["screen_name"])
 
+        var matchingTweets = tweets.filter(function(tweet){
+            return tweet["full_text"].includes("@sandwoah")
+        })
+        console.log(matchingTweets.length)
+
+        matchingTweets.forEach(function(tweet){
+            console.log(tweet["user"]["screen_name"])
+        })
+
+        matchingTweets.sort(function(a, b) {
+            return d3.descending(a["likes_count"], b["likes_count"])
+        })
+        console.log(matchingTweets[0]["user"]["screen_name"])
+        console.log(matchingTweets[0]["likes_count"])
 
 
 
@@ -110,8 +125,48 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        var table = document.getElementById("social-feed")
 
+        tweets.sort(function(a, b) {
+            return d3.descending(a["likes_count"], b["likes_count"])
+        })
 
+        // HEADER ROW
+        var headerRow = document.createElement("tr")
+        var headers = ["Tweet Id", "Tweet Text", "User Screen Name", "User Followers", "Tweet Likes"]
+        headers.forEach(headerText => {
+            var th = document.createElement("th")
+            th.textContent = headerText
+            headerRow.appendChild(th)
+        })
+        table.appendChild(headerRow)
+
+        // ROWS
+        tweets.forEach(tweet => {
+            var tr = document.createElement("tr")
+
+            var tdId = document.createElement("td")
+            tdId.textContent = tweet.id
+            tr.appendChild(tdId)
+
+            var tdText = document.createElement("td")
+            tdText.textContent = tweet.full_text
+            tr.appendChild(tdText)
+
+            var tdScreenName = document.createElement("td")
+            tdScreenName.textContent = tweet.user.screen_name
+            tr.appendChild(tdScreenName)
+
+            var tdFollowers = document.createElement("td")
+            tdFollowers.textContent = tweet.user.followers
+            tr.appendChild(tdFollowers)
+
+            var tdLikes = document.createElement("td")
+            tdLikes.textContent = tweet.likes_count
+            tr.appendChild(tdLikes)
+
+            table.appendChild(tr)
+        })
 
     </script>
 

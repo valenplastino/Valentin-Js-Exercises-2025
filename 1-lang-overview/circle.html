@@ -39,30 +39,37 @@
     </p>
 
     <label>Radius:</label>
-    <input id="input-radius" type="number" placeholder="9" value="9"></input>
+    <input id="input-radius" type="number" placeholder="9" value="9">
     <button id="calculate">Calculate</button>
 
     <br>
     <label>Area:</label>
     <span id="display-area">TODO</span>
 
-
     <script type="text/javascript">
+        console.log("---------------------");
+        console.log("PART 1...");
 
-        console.log("---------------------")
-        console.log("PART 1...")
+        // Function to calculate area of a circle
+        function calculateCircleArea(radius) {
+            return Math.PI * Math.pow(radius, 2);
+        }
 
+        // Invoke function with radius = 9
+        const radius = 9;
+        const area = calculateCircleArea(radius);
+        console.log("Radius:", radius);
+        console.log("Area:", area);
 
+        console.log("---------------------");
+        console.log("PART 2...");
 
-
-
-        console.log("---------------------")
-        console.log("PART 2...")
-
-
-
-
-
+        // Handle click event for Calculate button
+        document.getElementById("calculate").addEventListener("click", function () {
+            const inputRadius = parseFloat(document.getElementById("input-radius").value);
+            const computedArea = calculateCircleArea(inputRadius);
+            document.getElementById("display-area").textContent = computedArea.toFixed(2);
+        });
     </script>
 </body>
 </html>
